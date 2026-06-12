@@ -1,0 +1,14 @@
+<Project>
+  <PropertyGroup>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <RepositoryUrl>https://github.com/teesofttech/Termii.SDK</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/teesofttech/Termii.SDK</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>Teesoft Tech</Authors>
+    <Company>Teesoft Tech</Company>
+  </PropertyGroup>
+</Project>
