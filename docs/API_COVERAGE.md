@@ -46,17 +46,17 @@ The Termii docs describe a REST/JSON API and state that each account has its own
 | Messaging | Send WhatsApp conversational message | POST | `/api/sms/send` | JSON body | `TermiiClient.Messaging` | Implemented | #7, PR #21 | Unit tests added |
 | Messaging | Send bulk message | POST | `/api/sms/send/bulk` | JSON body | `TermiiClient.Messaging` | Implemented | #7, PR #21 | Unit tests added |
 | Messaging | Send via Number API | POST | `/api/sms/number/send` | JSON body | `TermiiClient.Numbers` | Implemented | #5, PR #25 | Unit tests added |
-| Token | Send OTP token | POST | `/api/sms/otp/send` | JSON body | `TermiiClient.Tokens` | In progress | #4 | Unit tests added |
-| Token | Verify OTP token | POST | `/api/sms/otp/verify` | JSON body | `TermiiClient.Tokens` | In progress | #4 | Unit tests added |
-| Token | Generate in-app OTP token | POST | `/api/sms/otp/generate` | JSON body | `TermiiClient.Tokens` | In progress | #4 | Unit tests added |
-| Token | Send voice OTP | POST | `/api/sms/otp/send/voice` | JSON body | `TermiiClient.Tokens` | In progress | #4 | Unit tests added |
-| Token | Send voice call token | POST | `/api/sms/otp/call` | JSON body | `TermiiClient.Tokens` | In progress | #4 | Unit tests added |
-| Token | Send email OTP token | POST | `/api/email/otp/send` | JSON body | `TermiiClient.Tokens` | In progress | #4 | Unit tests added |
-| Token | Send WhatsApp OTP token | POST | `/api/sms/send` | JSON body with `channel=whatsapp_otp` | `TermiiClient.Tokens` | In progress | #4 | Unit tests added |
-| Insights | Get balance | GET | `/api/get-balance` | Query | `TermiiClient.Insights` | Planned | #9 | Planned unit + optional integration |
-| Insights | Search DND/number status | GET | `/api/check/dnd` | Query | `TermiiClient.Insights` | Planned | #9 | Planned unit + optional integration |
-| Insights | Query number intelligence/status | GET | `/api/insight/number/query` | Query | `TermiiClient.Insights` | Planned | #9 | Planned unit + optional integration |
-| Insights | Fetch message inbox/history | GET | `/api/sms/inbox` | Query | `TermiiClient.Insights` | Planned | #9 | Planned unit + optional integration |
+| Token | Send OTP token | POST | `/api/sms/otp/send` | JSON body | `TermiiClient.Tokens` | Implemented | #4, PR #26 | Unit tests added |
+| Token | Verify OTP token | POST | `/api/sms/otp/verify` | JSON body | `TermiiClient.Tokens` | Implemented | #4, PR #26 | Unit tests added |
+| Token | Generate in-app OTP token | POST | `/api/sms/otp/generate` | JSON body | `TermiiClient.Tokens` | Implemented | #4, PR #26 | Unit tests added |
+| Token | Send voice OTP | POST | `/api/sms/otp/send/voice` | JSON body | `TermiiClient.Tokens` | Implemented | #4, PR #26 | Unit tests added |
+| Token | Send voice call token | POST | `/api/sms/otp/call` | JSON body | `TermiiClient.Tokens` | Implemented | #4, PR #26 | Unit tests added |
+| Token | Send email OTP token | POST | `/api/email/otp/send` | JSON body | `TermiiClient.Tokens` | Implemented | #4, PR #26 | Unit tests added |
+| Token | Send WhatsApp OTP token | POST | `/api/sms/send` | JSON body with `channel=whatsapp_otp` | `TermiiClient.Tokens` | Implemented | #4, PR #26 | Unit tests added |
+| Insights | Get balance | GET | `/api/get-balance` | Query | `TermiiClient.Insights` | In progress | #9 | Unit tests added |
+| Insights | Search DND/number status | GET | `/api/check/dnd` | Query | `TermiiClient.Insights` | In progress | #9 | Unit tests added |
+| Insights | Query number intelligence/status | GET | `/api/insight/number/query` | Query | `TermiiClient.Insights` | In progress | #9 | Unit tests added |
+| Insights | Fetch message inbox/history | GET | `/api/sms/inbox` | Query | `TermiiClient.Insights` | In progress | #9 | Unit tests added |
 | Insights | Fetch message analytics/history | GET | `/api/sms/history/analytics` | Query | `TermiiClient.Insights` | Needs verification | #9 | Planned unit + optional integration |
 
 ## Deferred Coverage
