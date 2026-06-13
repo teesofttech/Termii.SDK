@@ -19,5 +19,6 @@ public sealed class TermiiClientIntegrationTests
         Assert.True(client.Options.BaseUrl.IsAbsoluteUri);
         Assert.NotNull(client.Messaging);
         Assert.NotNull(client.SenderIds);
+        Assert.NotNull(client.Numbers);
     }
 }

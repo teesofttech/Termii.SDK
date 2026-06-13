@@ -36,6 +36,7 @@ public sealed class TermiiClient : IDisposable
         _pipeline = new TermiiJsonHttpPipeline(_httpClient, Options);
         Messaging = new TermiiMessagingClient(_pipeline);
         SenderIds = new TermiiSenderIdClient(_pipeline);
+        Numbers = new TermiiNumberClient(_pipeline);
     }
 
     public TermiiOptions Options { get; }
@@ -43,6 +44,8 @@ public sealed class TermiiClient : IDisposable
     public ITermiiMessagingClient Messaging { get; }
 
     public ITermiiSenderIdClient SenderIds { get; }
+
+    public ITermiiNumberClient Numbers { get; }
 
     public void Dispose()
     {

@@ -62,12 +62,30 @@ Fetch sender IDs:
 var senderIds = await client.SenderIds.GetAsync();
 ```
 
+Send through the Number API:
+
+```csharp
+var numberMessage = await client.Numbers.SendAsync(new SendNumberMessageRequest
+{
+    To = "2348012345678",
+    Sms = "Hello from a dedicated Termii number"
+});
+```
+
 ## Examples
 
 Run the examples project after setting your Termii API key:
 
 ```bash
 export TERMII_API_KEY="your-termii-api-key"
+dotnet run --project examples/Termii.Examples
+```
+
+To send a live Number API example message, opt in explicitly:
+
+```bash
+export TERMII_SEND_NUMBER_MESSAGE="true"
+export TERMII_EXAMPLE_PHONE_NUMBER="2348012345678"
 dotnet run --project examples/Termii.Examples
 ```
 
