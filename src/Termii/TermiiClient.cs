@@ -34,9 +34,12 @@ public sealed class TermiiClient : IDisposable
         }
 
         _pipeline = new TermiiJsonHttpPipeline(_httpClient, Options);
+        Messaging = new TermiiMessagingClient(_pipeline);
     }
 
     public TermiiOptions Options { get; }
+
+    public ITermiiMessagingClient Messaging { get; }
 
     public void Dispose()
     {

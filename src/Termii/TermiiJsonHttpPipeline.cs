@@ -1,4 +1,5 @@
 using System.Net.Http.Headers;
+using System.Text.Json.Serialization;
 using System.Text;
 using System.Text.Json;
 
@@ -9,6 +10,7 @@ internal sealed class TermiiJsonHttpPipeline
     private static readonly JsonSerializerOptions JsonSerializerOptions = new(JsonSerializerDefaults.Web)
     {
         DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
+        NumberHandling = JsonNumberHandling.AllowReadingFromString,
     };
 
     private readonly HttpClient _httpClient;
@@ -75,6 +77,32 @@ internal sealed class TermiiJsonHttpPipeline
         response.Dispose();
 
         throw new TermiiApiException(statusCode, error.Message, error.Code, rawResponseBody);
+    }
+
+    public async Task<TResponse> SendJsonAsync<TResponse>(
+        HttpMethod method,
+        string path,
+        object? body,
+        TermiiAuthenticationLocation authenticationLocation,
+        CancellationToken cancellationToken)
+    {
+        using var response = await SendAsync(method, path, body, authenticationLocation, cancellationToken)
+            .ConfigureAwait(false);
+
+        if (response.Content is null)
+        {
+            throw new InvalidOperationException("The Termii API returned an empty response.");
+        }
+
+        var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+        var value = JsonSerializer.Deserialize<TResponse>(json, JsonSerializerOptions);
+
+        if (value is null)
+        {
+            throw new InvalidOperationException("The Termii API returned an empty response.");
+        }
+
+        return value;
     }
 
     private string AppendApiKey(string path)

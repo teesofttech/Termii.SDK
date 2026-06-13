@@ -35,6 +35,19 @@ builder.Services.AddTermii(options =>
 });
 ```
 
+Send a message:
+
+```csharp
+var response = await client.Messaging.SendAsync(new SendMessageRequest
+{
+    To = "2348012345678",
+    From = "Termii",
+    Sms = "Hello from .NET",
+    Channel = TermiiMessageChannel.Generic,
+    Type = TermiiMessageType.Plain
+});
+```
+
 ## Examples
 
 Run the examples project after setting your Termii API key:
