@@ -31,10 +31,10 @@ The Termii docs describe a REST/JSON API and state that each account has its own
 | API coverage matrix | Implemented | #14, PR #18 |
 | Error handling and request validation | Implemented | #6, PR #19 |
 | Reusable fake HTTP test helpers and opt-in live test conventions | Implemented | #10, PR #20 |
-| README endpoint examples | Planned | #12 |
+| README endpoint examples | In progress | #12 |
 | CI build/test/package validation | Implemented | #11, PR #22 |
 | NuGet package metadata and publishing workflow | Implemented | #8, PR #23 |
-| First GitHub Release and NuGet publish | Planned | #13 |
+| First GitHub Release and NuGet publish | Implemented | #13, PR #28, v0.2.0 |
 
 ## Endpoint Coverage
 
@@ -53,10 +53,10 @@ The Termii docs describe a REST/JSON API and state that each account has its own
 | Token | Send voice call token | POST | `/api/sms/otp/call` | JSON body | `TermiiClient.Tokens` | Implemented | #4, PR #26 | Unit tests added |
 | Token | Send email OTP token | POST | `/api/email/otp/send` | JSON body | `TermiiClient.Tokens` | Implemented | #4, PR #26 | Unit tests added |
 | Token | Send WhatsApp OTP token | POST | `/api/sms/send` | JSON body with `channel=whatsapp_otp` | `TermiiClient.Tokens` | Implemented | #4, PR #26 | Unit tests added |
-| Insights | Get balance | GET | `/api/get-balance` | Query | `TermiiClient.Insights` | In progress | #9 | Unit tests added |
-| Insights | Search DND/number status | GET | `/api/check/dnd` | Query | `TermiiClient.Insights` | In progress | #9 | Unit tests added |
-| Insights | Query number intelligence/status | GET | `/api/insight/number/query` | Query | `TermiiClient.Insights` | In progress | #9 | Unit tests added |
-| Insights | Fetch message inbox/history | GET | `/api/sms/inbox` | Query | `TermiiClient.Insights` | In progress | #9 | Unit tests added |
+| Insights | Get balance | GET | `/api/get-balance` | Query | `TermiiClient.Insights` | Implemented | #9, PR #27 | Unit tests added |
+| Insights | Search DND/number status | GET | `/api/check/dnd` | Query | `TermiiClient.Insights` | Implemented | #9, PR #27 | Unit tests added |
+| Insights | Query number intelligence/status | GET | `/api/insight/number/query` | Query | `TermiiClient.Insights` | Implemented | #9, PR #27 | Unit tests added |
+| Insights | Fetch message inbox/history | GET | `/api/sms/inbox` | Query | `TermiiClient.Insights` | Implemented | #9, PR #27 | Unit tests added |
 | Insights | Fetch message analytics/history | GET | `/api/sms/history/analytics` | Query | `TermiiClient.Insights` | Needs verification | #9 | Planned unit + optional integration |
 
 ## Deferred Coverage
