@@ -17,5 +17,6 @@ public sealed class TermiiClientIntegrationTests
 
         Assert.False(string.IsNullOrWhiteSpace(client.Options.ApiKey));
         Assert.True(client.Options.BaseUrl.IsAbsoluteUri);
+        Assert.NotNull(client.Messaging);
     }
 }
