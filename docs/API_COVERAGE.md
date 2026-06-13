@@ -40,8 +40,8 @@ The Termii docs describe a REST/JSON API and state that each account has its own
 
 | Area | Capability | Method | Path | Auth placement | SDK surface | SDK status | Tracking | Test status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Messaging | Fetch sender IDs | GET | `/api/sender-id` | Query | `TermiiClient.SenderIds` | Planned | #3 | Planned unit + optional integration |
-| Messaging | Request sender ID | POST | `/api/sender-id/request` | JSON body | `TermiiClient.SenderIds` | Planned | #3 | Planned unit + optional integration |
+| Messaging | Fetch sender IDs | GET | `/api/sender-id` | Query | `TermiiClient.SenderIds` | In progress | #3 | Unit tests added |
+| Messaging | Request sender ID | POST | `/api/sender-id/request` | JSON body | `TermiiClient.SenderIds` | In progress | #3 | Unit tests added |
 | Messaging | Send SMS/channel message | POST | `/api/sms/send` | JSON body | `TermiiClient.Messaging` | Implemented | #7, PR #21 | Unit tests added |
 | Messaging | Send WhatsApp conversational message | POST | `/api/sms/send` | JSON body | `TermiiClient.Messaging` | Implemented | #7, PR #21 | Unit tests added |
 | Messaging | Send bulk message | POST | `/api/sms/send/bulk` | JSON body | `TermiiClient.Messaging` | Implemented | #7, PR #21 | Unit tests added |
