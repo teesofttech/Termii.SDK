@@ -21,5 +21,6 @@ public sealed class TermiiClientIntegrationTests
         Assert.NotNull(client.SenderIds);
         Assert.NotNull(client.Numbers);
         Assert.NotNull(client.Tokens);
+        Assert.NotNull(client.Insights);
     }
 }

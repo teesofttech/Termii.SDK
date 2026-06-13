@@ -88,6 +88,12 @@ var token = await client.Tokens.SendAsync(new SendTokenRequest
 });
 ```
 
+Check account balance:
+
+```csharp
+var balance = await client.Insights.GetBalanceAsync();
+```
+
 ## Examples
 
 Run the examples project after setting your Termii API key:
