@@ -1,5 +1,7 @@
 # Termii .NET SDK
 
+[![CI](https://github.com/teesofttech/Termii.SDK/actions/workflows/ci.yml/badge.svg)](https://github.com/teesofttech/Termii.SDK/actions/workflows/ci.yml)
+
 A .NET SDK for the Termii messaging, token, and insights APIs.
 
 > This SDK is in early development. The first milestones establish the client, tests, examples, API coverage matrix, and package structure before endpoint support is added feature by feature.
@@ -14,6 +16,12 @@ The initial repository setup includes:
 - An API coverage matrix in `docs/API_COVERAGE.md`.
 
 ## Usage
+
+Install the package:
+
+```bash
+dotnet add package Termii.SDK
+```
 
 ```csharp
 using Termii;
@@ -88,3 +96,7 @@ Development is tracked through GitHub issues:
 - CI, documentation, NuGet packaging, and GitHub Releases.
 
 Official Termii documentation: https://developer.termii.com/
+
+## License
+
+This project is licensed under the MIT License.
