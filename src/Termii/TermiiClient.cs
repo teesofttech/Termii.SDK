@@ -37,6 +37,7 @@ public sealed class TermiiClient : IDisposable
         Messaging = new TermiiMessagingClient(_pipeline);
         SenderIds = new TermiiSenderIdClient(_pipeline);
         Numbers = new TermiiNumberClient(_pipeline);
+        Tokens = new TermiiTokenClient(_pipeline);
     }
 
     public TermiiOptions Options { get; }
@@ -46,6 +47,8 @@ public sealed class TermiiClient : IDisposable
     public ITermiiSenderIdClient SenderIds { get; }
 
     public ITermiiNumberClient Numbers { get; }
+
+    public ITermiiTokenClient Tokens { get; }
 
     public void Dispose()
     {

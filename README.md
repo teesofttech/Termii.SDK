@@ -72,6 +72,22 @@ var numberMessage = await client.Numbers.SendAsync(new SendNumberMessageRequest
 });
 ```
 
+Send an OTP token:
+
+```csharp
+var token = await client.Tokens.SendAsync(new SendTokenRequest
+{
+    To = "2348012345678",
+    From = "Termii",
+    Channel = TermiiMessageChannel.Generic,
+    PinAttempts = 3,
+    PinTimeToLive = 10,
+    PinLength = 6,
+    PinPlaceholder = "< 123456 >",
+    MessageText = "Your verification code is < 123456 >"
+});
+```
+
 ## Examples
 
 Run the examples project after setting your Termii API key:
