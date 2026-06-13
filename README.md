@@ -26,6 +26,15 @@ var client = new TermiiClient(new TermiiOptions
 
 The default base URL is `https://api.ng.termii.com`.
 
+For ASP.NET Core applications, register the SDK with dependency injection:
+
+```csharp
+builder.Services.AddTermii(options =>
+{
+    options.ApiKey = builder.Configuration["Termii:ApiKey"]!;
+});
+```
+
 ## Examples
 
 Run the examples project after setting your Termii API key:

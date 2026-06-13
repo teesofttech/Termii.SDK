@@ -5,7 +5,7 @@ This matrix tracks the Termii API surface against SDK implementation work.
 | Area | Capability | SDK status | Issue |
 | --- | --- | --- | --- |
 | Foundation | Solution, projects, examples, basic tests | In progress | #1 |
-| Foundation | Client configuration, authentication, HTTP pipeline | Planned | #2 |
+| Foundation | Client configuration, authentication, HTTP pipeline | In progress | #2 |
 | Foundation | Error handling and validation | Planned | #6 |
 | Messaging | Send SMS and channel messages | Planned | #7 |
 | Messaging | Sender ID APIs | Planned | #3 |
