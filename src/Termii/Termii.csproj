@@ -4,9 +4,9 @@
     <AssemblyName>Termii</AssemblyName>
     <RootNamespace>Termii</RootNamespace>
     <PackageId>Termii.SDK</PackageId>
-    <VersionPrefix>0.1.0</VersionPrefix>
+    <VersionPrefix>0.2.0</VersionPrefix>
     <Description>A .NET SDK for the Termii messaging, token, and insights APIs.</Description>
-    <PackageReleaseNotes>Initial SDK package metadata and release workflow preparation.</PackageReleaseNotes>
+    <PackageReleaseNotes>Add messaging, sender ID, Number API, Token API, and Insights API client support with unit and integration smoke coverage.</PackageReleaseNotes>
     <PackageTags>termii;sms;otp;messaging;dotnet;sdk</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
