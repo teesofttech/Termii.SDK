@@ -57,6 +57,7 @@ Integration tests are opt-in and must not call live Termii endpoints unless the 
 ```bash
 export TERMII_API_KEY="your-termii-api-key"
 export TERMII_BASE_URL="https://api.ng.termii.com"
+export TERMII_TEST_PHONE_NUMBER="2348012345678"
 dotnet test tests/Termii.IntegrationTests
 ```
 
