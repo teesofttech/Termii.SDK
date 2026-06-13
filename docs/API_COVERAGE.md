@@ -32,7 +32,7 @@ The Termii docs describe a REST/JSON API and state that each account has its own
 | Error handling and request validation | Implemented | #6, PR #19 |
 | Reusable fake HTTP test helpers and opt-in live test conventions | Implemented | #10, PR #20 |
 | README endpoint examples | Planned | #12 |
-| CI build/test/package validation | Planned | #11 |
+| CI build/test/package validation | In progress | #11 |
 | NuGet package metadata and publishing workflow | Planned | #8 |
 | First GitHub Release and NuGet publish | Planned | #13 |
 
