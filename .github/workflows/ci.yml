@@ -5,9 +5,15 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  build:
+  test:
+    name: Build, test, and pack
     runs-on: ubuntu-latest
 
     steps:
@@ -20,10 +26,30 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Restore
-        run: dotnet restore
+        run: dotnet restore Termii.SDK.sln
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build Termii.SDK.sln --configuration Release --no-restore
 
-      - name: Test
-        run: dotnet test --configuration Release --no-build
+      - name: Unit tests
+        run: dotnet test tests/Termii.Tests/Termii.Tests.csproj --configuration Release --no-build --logger "trx;LogFileName=unit-tests.trx"
+
+      - name: Integration tests
+        run: dotnet test tests/Termii.IntegrationTests/Termii.IntegrationTests.csproj --configuration Release --no-build --logger "trx;LogFileName=integration-tests.trx"
+
+      - name: Pack
+        run: dotnet pack src/Termii/Termii.csproj --configuration Release --no-build --output artifacts/packages
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: |
+            **/TestResults/*.trx
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuget-package
+          path: artifacts/packages/*.nupkg
