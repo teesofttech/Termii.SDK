@@ -13,8 +13,8 @@ This project publishes the SDK as a NuGet package from version tags.
 1. Confirm all intended issues for the release are merged.
 2. Confirm CI is green on `main`.
 3. Update package metadata and README examples if needed.
-4. Update `VersionPrefix` in `src/Termii/Termii.csproj`.
-5. Create and push a tag like `v0.1.0`.
+4. Update `VersionPrefix` and `PackageReleaseNotes` in `src/Termii/Termii.csproj`.
+5. Create and push a tag like `v0.2.0`.
 6. Confirm the release workflow creates the package artifact.
 7. Confirm NuGet publishing succeeds when the `NUGET_API_KEY` secret is configured.
 
