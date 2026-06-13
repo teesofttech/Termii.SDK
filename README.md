@@ -214,6 +214,17 @@ var history = await client.Insights.GetMessageHistoryAsync(new GetMessageHistory
 });
 ```
 
+Fetch message analytics:
+
+```csharp
+var analytics = await client.Insights.GetMessageAnalyticsAsync(new GetMessageAnalyticsRequest
+{
+    PhoneNumber = "2348012345678",
+    DateFrom = "2026-06-01",
+    DateTo = "2026-06-13"
+});
+```
+
 ## Error Handling
 
 The SDK throws `TermiiApiException` for non-success HTTP responses from Termii:
@@ -247,7 +258,7 @@ Implemented in the current SDK:
 - Sender IDs: list and request sender IDs.
 - Number API: send message through a dedicated Termii number.
 - Tokens: send, verify, generate, voice, email, and WhatsApp OTP flows.
-- Insights: balance, DND status, number intelligence, and message history.
+- Insights: balance, DND status, number intelligence, message history, and message analytics.
 
 Deferred or not yet implemented:
 
@@ -255,7 +266,6 @@ Deferred or not yet implemented:
 - Campaign phonebook APIs.
 - Product notification email APIs.
 - Webhook event models.
-- `/api/sms/history/analytics`, pending additional verification.
 
 See [docs/API_COVERAGE.md](docs/API_COVERAGE.md) for the detailed coverage matrix.
 

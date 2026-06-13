@@ -57,7 +57,7 @@ The Termii docs describe a REST/JSON API and state that each account has its own
 | Insights | Search DND/number status | GET | `/api/check/dnd` | Query | `TermiiClient.Insights` | Implemented | #9, PR #27 | Unit tests added |
 | Insights | Query number intelligence/status | GET | `/api/insight/number/query` | Query | `TermiiClient.Insights` | Implemented | #9, PR #27 | Unit tests added |
 | Insights | Fetch message inbox/history | GET | `/api/sms/inbox` | Query | `TermiiClient.Insights` | Implemented | #9, PR #27 | Unit tests added |
-| Insights | Fetch message analytics/history | GET | `/api/sms/history/analytics` | Query | `TermiiClient.Insights` | Needs verification | #9 | Planned unit + optional integration |
+| Insights | Fetch message analytics/history | GET | `/api/sms/history/analytics` | Query | `TermiiClient.Insights` | In progress | #34 | Unit tests added |
 
 ## Deferred Coverage
 
@@ -82,7 +82,7 @@ The provided Postman collection currently lists these groups:
 | --- | --- | --- |
 | Switch | SenderId, Numbers, Send | Covered by #3, #5, and #7. |
 | Token | Send Token, Verify Token, In-App Token | Covered by #4. |
-| Insight | history analytics, Search, Balance, Inbox API | Covered by #9, with `/api/sms/history/analytics` marked for verification against live behavior/docs. |
+| Insight | history analytics, Search, Balance, Inbox API | Covered by #9 and #34. |
 
 ## Implementation Rules
 
