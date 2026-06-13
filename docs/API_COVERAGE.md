@@ -28,8 +28,8 @@ The Termii docs describe a REST/JSON API and state that each account has its own
 | --- | --- | --- |
 | Solution, SDK project, unit tests, integration test shell, examples project | Implemented | #1, PR #15 |
 | Client configuration, `HttpClient` pipeline, API-key injection, DI registration | Implemented | #2, PR #17 |
-| API coverage matrix | In progress | #14 |
-| Error handling and request validation | Planned | #6 |
+| API coverage matrix | Implemented | #14, PR #18 |
+| Error handling and request validation | In progress | #6 |
 | Reusable fake HTTP test helpers and opt-in live test conventions | Planned | #10 |
 | README endpoint examples | Planned | #12 |
 | CI build/test/package validation | Planned | #11 |

@@ -86,6 +86,86 @@ public sealed class TermiiClientTests
     }
 
     [Fact]
+    public async Task SendAsyncThrowsTermiiApiExceptionForJsonErrorResponses()
+    {
+        using var handler = new RecordingHttpMessageHandler(
+            HttpStatusCode.BadRequest,
+            """{"message":"Invalid sender ID","code":"sender_id_invalid"}""");
+        using var httpClient = new HttpClient(handler)
+        {
+            BaseAddress = new Uri("https://example.test"),
+        };
+        var client = new TermiiClient(httpClient, new TermiiOptions
+        {
+            ApiKey = "secret-api-key",
+            BaseUrl = new Uri("https://example.test"),
+        });
+
+        var exception = await Assert.ThrowsAsync<TermiiApiException>(() => client.SendAsync(
+            HttpMethod.Post,
+            "/api/sms/send",
+            new { to = "2348012345678", from = "Termii", sms = "Hello" },
+            TermiiAuthenticationLocation.Body,
+            CancellationToken.None));
+
+        Assert.Equal(HttpStatusCode.BadRequest, exception.StatusCode);
+        Assert.Equal("Invalid sender ID", exception.TermiiMessage);
+        Assert.Equal("sender_id_invalid", exception.TermiiCode);
+        Assert.Equal("""{"message":"Invalid sender ID","code":"sender_id_invalid"}""", exception.RawResponseBody);
+        Assert.DoesNotContain("secret-api-key", exception.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task SendAsyncThrowsTermiiApiExceptionForPlainTextErrorResponses()
+    {
+        using var handler = new RecordingHttpMessageHandler(HttpStatusCode.InternalServerError, "Service unavailable");
+        using var httpClient = new HttpClient(handler)
+        {
+            BaseAddress = new Uri("https://example.test"),
+        };
+        var client = new TermiiClient(httpClient, new TermiiOptions
+        {
+            ApiKey = "secret-api-key",
+            BaseUrl = new Uri("https://example.test"),
+        });
+
+        var exception = await Assert.ThrowsAsync<TermiiApiException>(() => client.SendAsync(
+            HttpMethod.Get,
+            "/api/get-balance",
+            cancellationToken: CancellationToken.None));
+
+        Assert.Equal(HttpStatusCode.InternalServerError, exception.StatusCode);
+        Assert.Null(exception.TermiiMessage);
+        Assert.Null(exception.TermiiCode);
+        Assert.Equal("Service unavailable", exception.RawResponseBody);
+        Assert.DoesNotContain("secret-api-key", exception.Message, StringComparison.Ordinal);
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    [InlineData("api/sms/send")]
+    [InlineData("https://example.test/api/sms/send")]
+    public async Task SendAsyncRejectsInvalidPaths(string path)
+    {
+        using var handler = new RecordingHttpMessageHandler();
+        using var httpClient = new HttpClient(handler)
+        {
+            BaseAddress = new Uri("https://example.test"),
+        };
+        var client = new TermiiClient(httpClient, new TermiiOptions
+        {
+            ApiKey = "test-api-key",
+            BaseUrl = new Uri("https://example.test"),
+        });
+
+        await Assert.ThrowsAnyAsync<ArgumentException>(() => client.SendAsync(
+            HttpMethod.Get,
+            path,
+            cancellationToken: CancellationToken.None));
+    }
+
+    [Fact]
     public void AddTermiiRegistersConfiguredClient()
     {
         var services = new ServiceCollection();
@@ -108,15 +188,29 @@ public sealed class TermiiClientTests
 
 internal sealed class RecordingHttpMessageHandler : HttpMessageHandler, IDisposable
 {
+    private readonly HttpStatusCode _statusCode;
+    private readonly string _responseBody;
+
+    public RecordingHttpMessageHandler()
+        : this(HttpStatusCode.OK, "{}")
+    {
+    }
+
+    public RecordingHttpMessageHandler(HttpStatusCode statusCode, string responseBody)
+    {
+        _statusCode = statusCode;
+        _responseBody = responseBody;
+    }
+
     public HttpRequestMessage? Request { get; private set; }
 
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
         Request = request;
 
-        return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+        return Task.FromResult(new HttpResponseMessage(_statusCode)
         {
-            Content = new StringContent("{}"),
+            Content = new StringContent(_responseBody),
         });
     }
 }

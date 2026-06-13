@@ -20,7 +20,7 @@ internal sealed class TermiiJsonHttpPipeline
         _options = options ?? throw new ArgumentNullException(nameof(options));
     }
 
-    public Task<HttpResponseMessage> SendAsync(
+    public async Task<HttpResponseMessage> SendAsync(
         HttpMethod method,
         string path,
         object? body,
@@ -37,6 +37,16 @@ internal sealed class TermiiJsonHttpPipeline
             throw new ArgumentException("A request path is required.", nameof(path));
         }
 
+        if (!path.StartsWith("/", StringComparison.Ordinal))
+        {
+            throw new ArgumentException("Termii request paths must start with '/'.", nameof(path));
+        }
+
+        if (Uri.TryCreate(path, UriKind.RelativeOrAbsolute, out var uri) && uri.IsAbsoluteUri)
+        {
+            throw new ArgumentException("Termii request paths must be relative.", nameof(path));
+        }
+
         var requestUri = authenticationLocation == TermiiAuthenticationLocation.Query
             ? AppendApiKey(path)
             : path;
@@ -49,7 +59,22 @@ internal sealed class TermiiJsonHttpPipeline
             request.Content = CreateJsonContent(body, authenticationLocation);
         }
 
-        return _httpClient.SendAsync(request, cancellationToken);
+        var response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
+
+        if (response.IsSuccessStatusCode)
+        {
+            return response;
+        }
+
+        var statusCode = response.StatusCode;
+        var rawResponseBody = response.Content is null
+            ? string.Empty
+            : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+        var error = TermiiApiError.Parse(rawResponseBody);
+
+        response.Dispose();
+
+        throw new TermiiApiException(statusCode, error.Message, error.Code, rawResponseBody);
     }
 
     private string AppendApiKey(string path)
