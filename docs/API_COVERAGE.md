@@ -32,8 +32,8 @@ The Termii docs describe a REST/JSON API and state that each account has its own
 | Error handling and request validation | Implemented | #6, PR #19 |
 | Reusable fake HTTP test helpers and opt-in live test conventions | Implemented | #10, PR #20 |
 | README endpoint examples | Planned | #12 |
-| CI build/test/package validation | In progress | #11 |
-| NuGet package metadata and publishing workflow | Planned | #8 |
+| CI build/test/package validation | Implemented | #11, PR #22 |
+| NuGet package metadata and publishing workflow | In progress | #8 |
 | First GitHub Release and NuGet publish | Planned | #13 |
 
 ## Endpoint Coverage
@@ -42,9 +42,9 @@ The Termii docs describe a REST/JSON API and state that each account has its own
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Messaging | Fetch sender IDs | GET | `/api/sender-id` | Query | `TermiiClient.SenderIds` | Planned | #3 | Planned unit + optional integration |
 | Messaging | Request sender ID | POST | `/api/sender-id/request` | JSON body | `TermiiClient.SenderIds` | Planned | #3 | Planned unit + optional integration |
-| Messaging | Send SMS/channel message | POST | `/api/sms/send` | JSON body | `TermiiClient.Messaging` | In progress | #7 | Unit tests added |
-| Messaging | Send WhatsApp conversational message | POST | `/api/sms/send` | JSON body | `TermiiClient.Messaging` | In progress | #7 | Unit tests added |
-| Messaging | Send bulk message | POST | `/api/sms/send/bulk` | JSON body | `TermiiClient.Messaging` | In progress | #7 | Unit tests added |
+| Messaging | Send SMS/channel message | POST | `/api/sms/send` | JSON body | `TermiiClient.Messaging` | Implemented | #7, PR #21 | Unit tests added |
+| Messaging | Send WhatsApp conversational message | POST | `/api/sms/send` | JSON body | `TermiiClient.Messaging` | Implemented | #7, PR #21 | Unit tests added |
+| Messaging | Send bulk message | POST | `/api/sms/send/bulk` | JSON body | `TermiiClient.Messaging` | Implemented | #7, PR #21 | Unit tests added |
 | Messaging | Send via Number API | POST | `/api/sms/number/send` | Query or JSON body, docs/examples vary | `TermiiClient.Messaging` or `TermiiClient.Numbers` | Planned | #5 | Planned unit + optional integration |
 | Token | Send OTP token | POST | `/api/sms/otp/send` | JSON body | `TermiiClient.Token` | Planned | #4 | Planned unit + optional integration |
 | Token | Verify OTP token | POST | `/api/sms/otp/verify` | JSON body | `TermiiClient.Token` | Planned | #4 | Planned unit + optional integration |

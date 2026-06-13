@@ -3,8 +3,10 @@
     <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
     <AssemblyName>Termii</AssemblyName>
     <RootNamespace>Termii</RootNamespace>
-    <PackageId>Termii</PackageId>
+    <PackageId>Termii.SDK</PackageId>
+    <VersionPrefix>0.1.0</VersionPrefix>
     <Description>A .NET SDK for the Termii messaging, token, and insights APIs.</Description>
+    <PackageReleaseNotes>Initial SDK package metadata and release workflow preparation.</PackageReleaseNotes>
     <PackageTags>termii;sms;otp;messaging;dotnet;sdk</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
@@ -12,6 +14,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
     <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="/" />
   </ItemGroup>
 </Project>

@@ -1,24 +1,32 @@
-name: CI
+name: Release
 
 on:
-  pull_request:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*.*.*'
   workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish to NuGet when NUGET_API_KEY is configured.
+        required: true
+        default: false
+        type: boolean
 
-concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+permissions:
+  contents: read
 
 jobs:
-  test:
-    name: Build, test, and pack
+  package:
+    name: Build, test, pack, and publish
     runs-on: ubuntu-latest
+    env:
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -40,14 +48,6 @@ jobs:
       - name: Pack
         run: dotnet pack src/Termii/Termii.csproj --configuration Release --no-build --output artifacts/packages
 
-      - name: Upload test results
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: test-results
-          path: |
-            **/TestResults/*.trx
-
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
@@ -55,3 +55,7 @@ jobs:
           path: |
             artifacts/packages/*.nupkg
             artifacts/packages/*.snupkg
+
+      - name: Publish to NuGet
+        if: ${{ (github.event_name == 'push' || inputs.publish) && env.NUGET_API_KEY != '' }}
+        run: dotnet nuget push "artifacts/packages/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key "$NUGET_API_KEY" --skip-duplicate
