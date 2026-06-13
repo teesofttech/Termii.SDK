@@ -56,6 +56,12 @@ var response = await client.Messaging.SendAsync(new SendMessageRequest
 });
 ```
 
+Fetch sender IDs:
+
+```csharp
+var senderIds = await client.SenderIds.GetAsync();
+```
+
 ## Examples
 
 Run the examples project after setting your Termii API key:
