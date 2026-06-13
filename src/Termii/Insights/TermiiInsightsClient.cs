@@ -64,4 +64,16 @@ internal sealed class TermiiInsightsClient : ITermiiInsightsClient
             TermiiAuthenticationLocation.Query,
             cancellationToken);
     }
+
+    public Task<MessageAnalyticsResponse> GetMessageAnalyticsAsync(
+        GetMessageAnalyticsRequest? request = null,
+        CancellationToken cancellationToken = default)
+    {
+        return _pipeline.SendJsonAsync<MessageAnalyticsResponse>(
+            HttpMethod.Get,
+            (request ?? new GetMessageAnalyticsRequest()).ToPath(),
+            body: null,
+            TermiiAuthenticationLocation.Query,
+            cancellationToken);
+    }
 }

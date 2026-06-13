@@ -15,4 +15,8 @@ public interface ITermiiInsightsClient
     Task<MessageHistoryResponse> GetMessageHistoryAsync(
         GetMessageHistoryRequest? request = null,
         CancellationToken cancellationToken = default);
+
+    Task<MessageAnalyticsResponse> GetMessageAnalyticsAsync(
+        GetMessageAnalyticsRequest? request = null,
+        CancellationToken cancellationToken = default);
 }

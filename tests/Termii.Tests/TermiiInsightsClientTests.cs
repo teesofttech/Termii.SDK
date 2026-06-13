@@ -143,6 +143,38 @@ public sealed class TermiiInsightsClientTests
     }
 
     [Fact]
+    public async Task GetMessageAnalyticsAsyncAddsFiltersAndDeserializesFlexibleResponse()
+    {
+        using var handler = new TestHttpMessageHandler(
+            HttpStatusCode.OK,
+            """{"sent":12,"delivered":10,"failed":1,"pending":1,"unknown_metric":5}""");
+        var client = TestTermiiClientFactory.Create(handler);
+
+        var response = await client.Insights.GetMessageAnalyticsAsync(
+            new GetMessageAnalyticsRequest
+            {
+                MessageId = "msg-123",
+                DateFrom = "2026-06-01",
+                DateTo = "2026-06-13",
+                PhoneNumber = "2348012345678",
+            },
+            CancellationToken.None);
+
+        var request = handler.LastRequest;
+        Assert.NotNull(request);
+
+        Assert.Equal(
+            "https://example.test/api/sms/history/analytics?message_id=msg-123&date_from=2026-06-01&date_to=2026-06-13&phone_number=2348012345678&api_key=test-api-key",
+            request.RequestUri!.AbsoluteUri);
+        Assert.Equal(12, response.Sent);
+        Assert.Equal(10, response.Delivered);
+        Assert.Equal(1, response.Failed);
+        Assert.Equal(1, response.Pending);
+        Assert.NotNull(response.AdditionalData);
+        Assert.Equal(5, response.AdditionalData["unknown_metric"].GetInt32());
+    }
+
+    [Fact]
     public async Task CheckDndAsyncRejectsMissingPhoneNumber()
     {
         using var handler = new TestHttpMessageHandler();
