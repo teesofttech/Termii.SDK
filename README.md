@@ -411,16 +411,41 @@ export TERMII_API_KEY="your-termii-api-key"
 dotnet run --project examples/Termii.Examples
 ```
 
+Run the offline webhook signature example:
+
+```bash
+export TERMII_EXAMPLE_ACTION="webhook-signature"
+dotnet run --project examples/Termii.Examples
+```
+
 Run a live balance example:
 
 ```bash
+export TERMII_API_KEY="your-termii-api-key"
 export TERMII_EXAMPLE_ACTION="balance"
+dotnet run --project examples/Termii.Examples
+```
+
+List phonebooks with a read-only live example:
+
+```bash
+export TERMII_API_KEY="your-termii-api-key"
+export TERMII_EXAMPLE_ACTION="phonebooks-list"
+dotnet run --project examples/Termii.Examples
+```
+
+List campaigns with a read-only live example:
+
+```bash
+export TERMII_API_KEY="your-termii-api-key"
+export TERMII_EXAMPLE_ACTION="campaigns-list"
 dotnet run --project examples/Termii.Examples
 ```
 
 Send a live Number API example message:
 
 ```bash
+export TERMII_API_KEY="your-termii-api-key"
 export TERMII_EXAMPLE_ACTION="number-message"
 export TERMII_EXAMPLE_PHONE_NUMBER="2348012345678"
 dotnet run --project examples/Termii.Examples
