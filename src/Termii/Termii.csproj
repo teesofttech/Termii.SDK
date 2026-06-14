@@ -4,9 +4,9 @@
     <AssemblyName>Termii</AssemblyName>
     <RootNamespace>Termii</RootNamespace>
     <PackageId>Termii.SDK</PackageId>
-    <VersionPrefix>0.3.0</VersionPrefix>
+    <VersionPrefix>0.4.0</VersionPrefix>
     <Description>A .NET SDK for the Termii messaging, token, and insights APIs, compatible with .NET Core 3.1 through .NET 10.</Description>
-    <PackageReleaseNotes>Add webhook event models, message analytics support, and explicit .NET Core 3.1 through .NET 10 compatibility documentation.</PackageReleaseNotes>
+    <PackageReleaseNotes>Add Campaign phonebook APIs, product notification email API, and WhatsApp template message APIs.</PackageReleaseNotes>
     <PackageTags>termii;sms;otp;messaging;dotnet;sdk;netstandard2.0;netcoreapp3.1;net10</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
