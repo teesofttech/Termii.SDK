@@ -9,4 +9,12 @@ public interface ITermiiMessagingClient
     Task<TermiiMessageResponse> SendBulkAsync(
         SendBulkMessageRequest request,
         CancellationToken cancellationToken = default);
+
+    Task<WhatsAppTemplateResponse> SendWhatsAppTemplateAsync(
+        SendWhatsAppTemplateRequest request,
+        CancellationToken cancellationToken = default);
+
+    Task<WhatsAppTemplateResponse> SendWhatsAppTemplateMediaAsync(
+        SendWhatsAppTemplateMediaRequest request,
+        CancellationToken cancellationToken = default);
 }

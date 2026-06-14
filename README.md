@@ -121,6 +121,18 @@ var response = await client.Numbers.SendAsync(new SendNumberMessageRequest
 });
 ```
 
+Send a WhatsApp template message:
+
+```csharp
+var template = await client.Messaging.SendWhatsAppTemplateAsync(new SendWhatsAppTemplateRequest
+{
+    PhoneNumber = "2348012345678",
+    DeviceId = "device-123",
+    TemplateId = "template-123",
+    Language = "en"
+});
+```
+
 ## Sender IDs
 
 Fetch sender IDs:
@@ -316,16 +328,13 @@ Request models also validate required fields before sending. Missing required va
 Implemented in the current SDK:
 
 - Messaging: send single, WhatsApp conversational, and bulk messages.
+- WhatsApp templates: send template messages with or without media.
 - Sender IDs: list and request sender IDs.
 - Number API: send message through a dedicated Termii number.
 - Tokens: send, verify, generate, voice, email, and WhatsApp OTP flows.
 - Insights: balance, DND status, number intelligence, message history, and message analytics.
 - Campaigns: list, create, update, and delete phonebooks.
 - Product emails: send template-based notification emails.
-
-Deferred or not yet implemented:
-
-- WhatsApp template/device message APIs.
 
 See [docs/API_COVERAGE.md](docs/API_COVERAGE.md) for the detailed coverage matrix.
 

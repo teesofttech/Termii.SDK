@@ -45,6 +45,8 @@ The Termii docs describe a REST/JSON API and state that each account has its own
 | Messaging | Send SMS/channel message | POST | `/api/sms/send` | JSON body | `TermiiClient.Messaging` | Implemented | #7, PR #21 | Unit tests added |
 | Messaging | Send WhatsApp conversational message | POST | `/api/sms/send` | JSON body | `TermiiClient.Messaging` | Implemented | #7, PR #21 | Unit tests added |
 | Messaging | Send bulk message | POST | `/api/sms/send/bulk` | JSON body | `TermiiClient.Messaging` | Implemented | #7, PR #21 | Unit tests added |
+| Messaging | Send WhatsApp template without media | POST | `/api/send/template` | JSON body | `TermiiClient.Messaging` | In progress | #30 | Unit tests added |
+| Messaging | Send WhatsApp template with media | POST | `/api/send/template/media` | JSON body | `TermiiClient.Messaging` | In progress | #30 | Unit tests added |
 | Messaging | Send via Number API | POST | `/api/sms/number/send` | JSON body | `TermiiClient.Numbers` | Implemented | #5, PR #25 | Unit tests added |
 | Token | Send OTP token | POST | `/api/sms/otp/send` | JSON body | `TermiiClient.Tokens` | Implemented | #4, PR #26 | Unit tests added |
 | Token | Verify OTP token | POST | `/api/sms/otp/verify` | JSON body | `TermiiClient.Tokens` | Implemented | #4, PR #26 | Unit tests added |
@@ -57,21 +59,19 @@ The Termii docs describe a REST/JSON API and state that each account has its own
 | Insights | Search DND/number status | GET | `/api/check/dnd` | Query | `TermiiClient.Insights` | Implemented | #9, PR #27 | Unit tests added |
 | Insights | Query number intelligence/status | GET | `/api/insight/number/query` | Query | `TermiiClient.Insights` | Implemented | #9, PR #27 | Unit tests added |
 | Insights | Fetch message inbox/history | GET | `/api/sms/inbox` | Query | `TermiiClient.Insights` | Implemented | #9, PR #27 | Unit tests added |
-| Insights | Fetch message analytics/history | GET | `/api/sms/history/analytics` | Query | `TermiiClient.Insights` | In progress | #34 | Unit tests added |
-| Campaigns | Fetch phonebooks | GET | `/api/phonebooks` | Query | `TermiiClient.Campaigns` | In progress | #33 | Unit tests added |
-| Campaigns | Create phonebook | POST | `/api/phonebooks` | JSON body | `TermiiClient.Campaigns` | In progress | #33 | Unit tests added |
-| Campaigns | Update phonebook | PATCH | `/api/phonebooks/{phonebook_id}` | JSON body | `TermiiClient.Campaigns` | In progress | #33 | Unit tests added |
-| Campaigns | Delete phonebook | DELETE | `/api/phonebooks/{phonebook_id}` | Query | `TermiiClient.Campaigns` | In progress | #33 | Unit tests added |
-| Email | Send product notification email | POST | `/api/templates/send-email` | JSON body | `TermiiClient.Emails` | In progress | #31 | Unit tests added |
+| Insights | Fetch message analytics/history | GET | `/api/sms/history/analytics` | Query | `TermiiClient.Insights` | Implemented | #34, PR #35 | Unit tests added |
+| Campaigns | Fetch phonebooks | GET | `/api/phonebooks` | Query | `TermiiClient.Campaigns` | Implemented | #33, PR #38 | Unit tests added |
+| Campaigns | Create phonebook | POST | `/api/phonebooks` | JSON body | `TermiiClient.Campaigns` | Implemented | #33, PR #38 | Unit tests added |
+| Campaigns | Update phonebook | PATCH | `/api/phonebooks/{phonebook_id}` | JSON body | `TermiiClient.Campaigns` | Implemented | #33, PR #38 | Unit tests added |
+| Campaigns | Delete phonebook | DELETE | `/api/phonebooks/{phonebook_id}` | Query | `TermiiClient.Campaigns` | Implemented | #33, PR #38 | Unit tests added |
+| Email | Send product notification email | POST | `/api/templates/send-email` | JSON body | `TermiiClient.Emails` | Implemented | #31, PR #39 | Unit tests added |
 
-## Deferred Coverage
+## Receiver-Side Coverage
 
-The following documented APIs are useful but should come after the first SDK milestone unless a consumer need pushes them forward.
+The following SDK support is not an outbound Termii API call.
 
 | Area | Capability | Method | Path | Status | Notes |
 | --- | --- | --- | --- | --- | --- |
-| Messaging | Send WhatsApp template without media | POST | `/api/send/template` | Deferred | Requires WhatsApp template/device setup. |
-| Messaging | Send WhatsApp template with media | POST | `/api/send/template/media` | Deferred | Requires WhatsApp template/device setup and media payload modeling. |
 | Insights | Webhook events and reports | N/A | Consumer webhook endpoint | Implemented | Receiver-side model support and README example covered by #32. |
 
 ## Postman Collection Reconciliation
