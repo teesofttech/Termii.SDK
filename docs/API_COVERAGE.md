@@ -72,7 +72,7 @@ The following documented APIs are useful but should come after the first SDK mil
 | Campaigns | Update phonebook | PATCH | `/api/phonebooks/{phonebook_id}` | Deferred | Part of campaign/phonebook management. |
 | Campaigns | Delete phonebook | DELETE | `/api/phonebooks/{phonebook_id}` | Deferred | Part of campaign/phonebook management. |
 | Email | Send product notification email | POST | `/api/templates/send-email` | Deferred | Email notifications should be a separate milestone after SMS/token/insights. |
-| Insights | Webhook events and reports | N/A | Consumer webhook endpoint | Deferred | This is SDK model/documentation support rather than an outbound Termii API call. |
+| Insights | Webhook events and reports | N/A | Consumer webhook endpoint | Implemented | Receiver-side model support and README example covered by #32. |
 
 ## Postman Collection Reconciliation
 
