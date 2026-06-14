@@ -11,6 +11,65 @@ internal sealed class TermiiCampaignClient : ITermiiCampaignClient
         _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
     }
 
+    public Task<SendCampaignResponse> SendAsync(
+        SendCampaignRequest request,
+        CancellationToken cancellationToken = default)
+    {
+        if (request is null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        request.Validate();
+
+        return _pipeline.SendJsonAsync<SendCampaignResponse>(
+            HttpMethod.Post,
+            "/api/sms/campaigns/send",
+            request,
+            TermiiAuthenticationLocation.Body,
+            cancellationToken);
+    }
+
+    public Task<CampaignListResponse> GetCampaignsAsync(
+        GetCampaignsRequest? request = null,
+        CancellationToken cancellationToken = default)
+    {
+        return _pipeline.SendJsonAsync<CampaignListResponse>(
+            HttpMethod.Get,
+            (request ?? new GetCampaignsRequest()).ToPath(),
+            body: null,
+            TermiiAuthenticationLocation.Query,
+            cancellationToken);
+    }
+
+    public Task<CampaignHistoryResponse> GetCampaignHistoryAsync(
+        string campaignId,
+        CancellationToken cancellationToken = default)
+    {
+        TermiiRequestValidation.Required(campaignId, nameof(campaignId));
+
+        return _pipeline.SendJsonAsync<CampaignHistoryResponse>(
+            HttpMethod.Get,
+            $"/api/sms/campaigns/{Uri.EscapeDataString(campaignId)}",
+            body: null,
+            TermiiAuthenticationLocation.Query,
+            cancellationToken);
+    }
+
+    public Task<CampaignOperationResponse> RetryAsync(
+        string campaignId,
+        CancellationToken cancellationToken = default)
+    {
+        TermiiRequestValidation.Required(campaignId, nameof(campaignId));
+
+        return _pipeline.SendJsonAsync<CampaignOperationResponse>(
+            Patch,
+            $"/api/sms/campaigns/{Uri.EscapeDataString(campaignId)}",
+            body: null,
+            TermiiAuthenticationLocation.Body,
+            cancellationToken);
+    }
+
     public Task<PhonebookListResponse> GetPhonebooksAsync(
         GetPhonebooksRequest? request = null,
         CancellationToken cancellationToken = default)
