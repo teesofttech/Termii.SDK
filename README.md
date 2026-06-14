@@ -18,6 +18,14 @@ Then import the SDK namespace:
 using Termii;
 ```
 
+## Compatibility
+
+The SDK targets `netstandard2.0` and `net8.0`.
+
+- .NET Core 3.1 applications use the `netstandard2.0` asset.
+- .NET 5, .NET 6, .NET 7, .NET 8, .NET 9, and .NET 10 applications can consume the package.
+- Modern .NET applications use the most compatible asset NuGet selects for the application target.
+
 ## Configuration
 
 Create a client manually:
