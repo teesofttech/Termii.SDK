@@ -285,6 +285,35 @@ var phonebook = await client.Campaigns.CreatePhonebookAsync(new CreatePhonebookR
 });
 ```
 
+## Contacts
+
+Add a single contact to a phonebook:
+
+```csharp
+var contact = await client.Contacts.AddAsync("phonebook-123", new AddContactRequest
+{
+    PhoneNumber = "8123696237",
+    CountryCode = "234",
+    EmailAddress = "person@example.com",
+    FirstName = "Ada",
+    LastName = "Lovelace"
+});
+```
+
+Upload contacts from a CSV file:
+
+```csharp
+await using var file = File.OpenRead("contacts.csv");
+
+var upload = await client.Contacts.UploadAsync(new UploadContactsRequest
+{
+    PhonebookId = "phonebook-123",
+    CountryCode = "234",
+    File = file,
+    FileName = "contacts.csv"
+});
+```
+
 ## Product Emails
 
 Send a product notification email:
@@ -334,6 +363,7 @@ Implemented in the current SDK:
 - Tokens: send, verify, generate, voice, email, and WhatsApp OTP flows.
 - Insights: balance, DND status, number intelligence, message history, and message analytics.
 - Campaigns: list, create, update, and delete phonebooks.
+- Contacts: list, add, upload, and delete phonebook contacts.
 - Product emails: send template-based notification emails.
 
 See [docs/API_COVERAGE.md](docs/API_COVERAGE.md) for the detailed coverage matrix.

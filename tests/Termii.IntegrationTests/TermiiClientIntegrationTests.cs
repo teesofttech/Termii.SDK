@@ -23,6 +23,7 @@ public sealed class TermiiClientIntegrationTests
         Assert.NotNull(client.Tokens);
         Assert.NotNull(client.Insights);
         Assert.NotNull(client.Campaigns);
+        Assert.NotNull(client.Contacts);
         Assert.NotNull(client.Emails);
     }
 }

@@ -64,6 +64,10 @@ The Termii docs describe a REST/JSON API and state that each account has its own
 | Campaigns | Create phonebook | POST | `/api/phonebooks` | JSON body | `TermiiClient.Campaigns` | Implemented | #33, PR #38 | Unit tests added |
 | Campaigns | Update phonebook | PATCH | `/api/phonebooks/{phonebook_id}` | JSON body | `TermiiClient.Campaigns` | Implemented | #33, PR #38 | Unit tests added |
 | Campaigns | Delete phonebook | DELETE | `/api/phonebooks/{phonebook_id}` | Query | `TermiiClient.Campaigns` | Implemented | #33, PR #38 | Unit tests added |
+| Contacts | Fetch contacts by phonebook | GET | `/api/phonebooks/{phonebook_id}/contacts` | Query | `TermiiClient.Contacts` | Implemented | #43 | Unit tests added |
+| Contacts | Add single contact to phonebook | POST | `/api/phonebooks/{phonebook_id}/contacts` | JSON body | `TermiiClient.Contacts` | Implemented | #43 | Unit tests added |
+| Contacts | Upload contacts CSV | POST | `/api/phonebooks/contacts/upload` | Multipart body | `TermiiClient.Contacts` | Implemented | #43 | Unit tests added |
+| Contacts | Delete contact in phonebook | DELETE | `/api/phonebooks/{phonebook_id}/contacts` | Query | `TermiiClient.Contacts` | Implemented | #43 | Unit tests added |
 | Email | Send product notification email | POST | `/api/templates/send-email` | JSON body | `TermiiClient.Emails` | Implemented | #31, PR #39 | Unit tests added |
 
 ## Receiver-Side Coverage

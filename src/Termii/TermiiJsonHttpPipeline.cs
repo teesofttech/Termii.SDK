@@ -79,6 +79,61 @@ internal sealed class TermiiJsonHttpPipeline
         throw new TermiiApiException(statusCode, error.Message, error.Code, rawResponseBody);
     }
 
+    public async Task<HttpResponseMessage> SendContentAsync(
+        HttpMethod method,
+        string path,
+        HttpContent content,
+        CancellationToken cancellationToken)
+    {
+        if (method is null)
+        {
+            throw new ArgumentNullException(nameof(method));
+        }
+
+        if (content is null)
+        {
+            throw new ArgumentNullException(nameof(content));
+        }
+
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            throw new ArgumentException("A request path is required.", nameof(path));
+        }
+
+        if (!path.StartsWith("/", StringComparison.Ordinal))
+        {
+            throw new ArgumentException("Termii request paths must start with '/'.", nameof(path));
+        }
+
+        if (Uri.TryCreate(path, UriKind.RelativeOrAbsolute, out var uri) && uri.IsAbsoluteUri)
+        {
+            throw new ArgumentException("Termii request paths must be relative.", nameof(path));
+        }
+
+        var request = new HttpRequestMessage(method, path)
+        {
+            Content = content,
+        };
+        request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+        var response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
+
+        if (response.IsSuccessStatusCode)
+        {
+            return response;
+        }
+
+        var statusCode = response.StatusCode;
+        var rawResponseBody = response.Content is null
+            ? string.Empty
+            : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+        var error = TermiiApiError.Parse(rawResponseBody);
+
+        response.Dispose();
+
+        throw new TermiiApiException(statusCode, error.Message, error.Code, rawResponseBody);
+    }
+
     public async Task<TResponse> SendJsonAsync<TResponse>(
         HttpMethod method,
         string path,
@@ -104,6 +159,33 @@ internal sealed class TermiiJsonHttpPipeline
 
         return value;
     }
+
+    public async Task<TResponse> SendContentJsonAsync<TResponse>(
+        HttpMethod method,
+        string path,
+        HttpContent content,
+        CancellationToken cancellationToken)
+    {
+        using var response = await SendContentAsync(method, path, content, cancellationToken)
+            .ConfigureAwait(false);
+
+        if (response.Content is null)
+        {
+            throw new InvalidOperationException("The Termii API returned an empty response.");
+        }
+
+        var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+        var value = JsonSerializer.Deserialize<TResponse>(json, JsonSerializerOptions);
+
+        if (value is null)
+        {
+            throw new InvalidOperationException("The Termii API returned an empty response.");
+        }
+
+        return value;
+    }
+
+    internal string ApiKey => _options.ApiKey;
 
     private string AppendApiKey(string path)
     {
