@@ -49,6 +49,44 @@ internal sealed class TermiiMessagingClient : ITermiiMessagingClient
             cancellationToken);
     }
 
+    public Task<WhatsAppTemplateResponse> SendWhatsAppTemplateAsync(
+        SendWhatsAppTemplateRequest request,
+        CancellationToken cancellationToken = default)
+    {
+        if (request is null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        request.Validate();
+
+        return _pipeline.SendJsonAsync<WhatsAppTemplateResponse>(
+            HttpMethod.Post,
+            "/api/send/template",
+            request,
+            TermiiAuthenticationLocation.Body,
+            cancellationToken);
+    }
+
+    public Task<WhatsAppTemplateResponse> SendWhatsAppTemplateMediaAsync(
+        SendWhatsAppTemplateMediaRequest request,
+        CancellationToken cancellationToken = default)
+    {
+        if (request is null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        request.Validate();
+
+        return _pipeline.SendJsonAsync<WhatsAppTemplateResponse>(
+            HttpMethod.Post,
+            "/api/send/template/media",
+            request,
+            TermiiAuthenticationLocation.Body,
+            cancellationToken);
+    }
+
     private sealed class SendMessagePayload
     {
         public SendMessagePayload(SendMessageRequest request)
