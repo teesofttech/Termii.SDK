@@ -225,6 +225,24 @@ var analytics = await client.Insights.GetMessageAnalyticsAsync(new GetMessageAna
 });
 ```
 
+## Webhooks
+
+Termii can send delivery/report callbacks to an endpoint you own. The SDK includes receiver-side models that can be used with ASP.NET Core model binding:
+
+```csharp
+app.MapPost("/webhooks/termii", (TermiiWebhookEvent webhookEvent) =>
+{
+    if (webhookEvent.Status == "delivered")
+    {
+        Console.WriteLine($"Delivered message {webhookEvent.MessageId}");
+    }
+
+    return Results.Ok();
+});
+```
+
+Webhook payloads can vary by event type and Termii account configuration. Unknown fields are preserved in `TermiiWebhookEvent.AdditionalData`.
+
 ## Error Handling
 
 The SDK throws `TermiiApiException` for non-success HTTP responses from Termii:
@@ -265,7 +283,6 @@ Deferred or not yet implemented:
 - WhatsApp template/device message APIs.
 - Campaign phonebook APIs.
 - Product notification email APIs.
-- Webhook event models.
 
 See [docs/API_COVERAGE.md](docs/API_COVERAGE.md) for the detailed coverage matrix.
 
