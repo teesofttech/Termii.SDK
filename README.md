@@ -273,6 +273,19 @@ var phonebook = await client.Campaigns.CreatePhonebookAsync(new CreatePhonebookR
 });
 ```
 
+## Product Emails
+
+Send a product notification email:
+
+```csharp
+var email = await client.Emails.SendProductEmailAsync(new SendProductEmailRequest
+{
+    EmailAddress = "person@example.com",
+    TemplateId = "template-123",
+    Subject = "Order update"
+});
+```
+
 ## Error Handling
 
 The SDK throws `TermiiApiException` for non-success HTTP responses from Termii:
@@ -308,11 +321,11 @@ Implemented in the current SDK:
 - Tokens: send, verify, generate, voice, email, and WhatsApp OTP flows.
 - Insights: balance, DND status, number intelligence, message history, and message analytics.
 - Campaigns: list, create, update, and delete phonebooks.
+- Product emails: send template-based notification emails.
 
 Deferred or not yet implemented:
 
 - WhatsApp template/device message APIs.
-- Product notification email APIs.
 
 See [docs/API_COVERAGE.md](docs/API_COVERAGE.md) for the detailed coverage matrix.
 

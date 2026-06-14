@@ -40,6 +40,7 @@ public sealed class TermiiClient : IDisposable
         Tokens = new TermiiTokenClient(_pipeline);
         Insights = new TermiiInsightsClient(_pipeline);
         Campaigns = new TermiiCampaignClient(_pipeline);
+        Emails = new TermiiEmailClient(_pipeline);
     }
 
     public TermiiOptions Options { get; }
@@ -55,6 +56,8 @@ public sealed class TermiiClient : IDisposable
     public ITermiiInsightsClient Insights { get; }
 
     public ITermiiCampaignClient Campaigns { get; }
+
+    public ITermiiEmailClient Emails { get; }
 
     public void Dispose()
     {

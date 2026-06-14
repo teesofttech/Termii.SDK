@@ -62,6 +62,7 @@ The Termii docs describe a REST/JSON API and state that each account has its own
 | Campaigns | Create phonebook | POST | `/api/phonebooks` | JSON body | `TermiiClient.Campaigns` | In progress | #33 | Unit tests added |
 | Campaigns | Update phonebook | PATCH | `/api/phonebooks/{phonebook_id}` | JSON body | `TermiiClient.Campaigns` | In progress | #33 | Unit tests added |
 | Campaigns | Delete phonebook | DELETE | `/api/phonebooks/{phonebook_id}` | Query | `TermiiClient.Campaigns` | In progress | #33 | Unit tests added |
+| Email | Send product notification email | POST | `/api/templates/send-email` | JSON body | `TermiiClient.Emails` | In progress | #31 | Unit tests added |
 
 ## Deferred Coverage
 
@@ -71,7 +72,6 @@ The following documented APIs are useful but should come after the first SDK mil
 | --- | --- | --- | --- | --- | --- |
 | Messaging | Send WhatsApp template without media | POST | `/api/send/template` | Deferred | Requires WhatsApp template/device setup. |
 | Messaging | Send WhatsApp template with media | POST | `/api/send/template/media` | Deferred | Requires WhatsApp template/device setup and media payload modeling. |
-| Email | Send product notification email | POST | `/api/templates/send-email` | Deferred | Email notifications should be a separate milestone after SMS/token/insights. |
 | Insights | Webhook events and reports | N/A | Consumer webhook endpoint | Implemented | Receiver-side model support and README example covered by #32. |
 
 ## Postman Collection Reconciliation
