@@ -251,6 +251,28 @@ app.MapPost("/webhooks/termii", (TermiiWebhookEvent webhookEvent) =>
 
 Webhook payloads can vary by event type and Termii account configuration. Unknown fields are preserved in `TermiiWebhookEvent.AdditionalData`.
 
+## Campaigns
+
+Fetch campaign phonebooks:
+
+```csharp
+var phonebooks = await client.Campaigns.GetPhonebooksAsync(new GetPhonebooksRequest
+{
+    Page = 0,
+    Size = 15
+});
+```
+
+Create a phonebook:
+
+```csharp
+var phonebook = await client.Campaigns.CreatePhonebookAsync(new CreatePhonebookRequest
+{
+    PhonebookName = "Customers",
+    Description = "Customer contacts"
+});
+```
+
 ## Error Handling
 
 The SDK throws `TermiiApiException` for non-success HTTP responses from Termii:
@@ -285,11 +307,11 @@ Implemented in the current SDK:
 - Number API: send message through a dedicated Termii number.
 - Tokens: send, verify, generate, voice, email, and WhatsApp OTP flows.
 - Insights: balance, DND status, number intelligence, message history, and message analytics.
+- Campaigns: list, create, update, and delete phonebooks.
 
 Deferred or not yet implemented:
 
 - WhatsApp template/device message APIs.
-- Campaign phonebook APIs.
 - Product notification email APIs.
 
 See [docs/API_COVERAGE.md](docs/API_COVERAGE.md) for the detailed coverage matrix.
