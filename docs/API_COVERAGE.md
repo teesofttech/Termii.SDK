@@ -81,6 +81,7 @@ The following SDK support is not an outbound Termii API call.
 | Area | Capability | Method | Path | Status | Notes |
 | --- | --- | --- | --- | --- | --- |
 | Insights | Webhook events and reports | N/A | Consumer webhook endpoint | Implemented | Receiver-side model support and README example covered by #32. |
+| Insights | Webhook signature verification | N/A | Consumer webhook endpoint | Implemented | `X-Termii-Signature` HMAC SHA512 verification covered by #45. |
 
 ## Postman Collection Reconciliation
 

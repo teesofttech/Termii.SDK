@@ -247,11 +247,22 @@ var analytics = await client.Insights.GetMessageAnalyticsAsync(new GetMessageAna
 
 ## Webhooks
 
-Termii can send delivery/report callbacks to an endpoint you own. The SDK includes receiver-side models that can be used with ASP.NET Core model binding:
+Termii can send delivery/report callbacks to an endpoint you own. Verify the raw request body with the `X-Termii-Signature` header before trusting the payload:
 
 ```csharp
-app.MapPost("/webhooks/termii", (TermiiWebhookEvent webhookEvent) =>
+app.MapPost("/webhooks/termii", async (HttpRequest request) =>
 {
+    using var reader = new StreamReader(request.Body);
+    var payload = await reader.ReadToEndAsync();
+    var signature = request.Headers["X-Termii-Signature"].ToString();
+
+    if (!TermiiWebhookSignature.Verify(payload, signature, "your-webhook-secret"))
+    {
+        return Results.Unauthorized();
+    }
+
+    var webhookEvent = JsonSerializer.Deserialize<TermiiWebhookEvent>(payload);
+
     if (webhookEvent.Status == "delivered")
     {
         Console.WriteLine($"Delivered message {webhookEvent.MessageId}");
@@ -387,6 +398,7 @@ Implemented in the current SDK:
 - Campaigns: send campaigns, list campaigns, fetch campaign history, retry failed campaigns, and manage phonebooks.
 - Contacts: list, add, upload, and delete phonebook contacts.
 - Product emails: send template-based notification emails.
+- Webhooks: delivery/report event models and HMAC SHA512 signature verification.
 
 See [docs/API_COVERAGE.md](docs/API_COVERAGE.md) for the detailed coverage matrix.
 

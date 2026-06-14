@@ -1,4 +1,6 @@
 using System.Text.Json;
+using System.Security.Cryptography;
+using System.Text;
 using Termii;
 using Xunit;
 
@@ -73,5 +75,88 @@ public sealed class TermiiWebhookEventTests
         Assert.Equal("3001", webhookEvent.ErrorCode);
         Assert.Equal("Insufficient balance", webhookEvent.ErrorMessage);
         Assert.Equal("2026-06-14 09:05:00", webhookEvent.DoneDate);
+    }
+
+    [Fact]
+    public void VerifyAcceptsValidSignature()
+    {
+        const string payload = """{"type":"delivery_report","message_id":"msg-123"}""";
+        const string secretKey = "webhook-secret";
+        var signature = Sign(payload, secretKey);
+
+        var verified = TermiiWebhookSignature.Verify(payload, signature, secretKey);
+
+        Assert.True(verified);
+    }
+
+    [Fact]
+    public void VerifyAcceptsSha512PrefixedSignature()
+    {
+        const string payload = """{"type":"delivery_report","message_id":"msg-123"}""";
+        const string secretKey = "webhook-secret";
+        var signature = $"sha512={Sign(payload, secretKey)}";
+
+        var verified = TermiiWebhookSignature.Verify(payload, signature, secretKey);
+
+        Assert.True(verified);
+    }
+
+    [Fact]
+    public void VerifyRejectsAlteredPayload()
+    {
+        const string payload = """{"type":"delivery_report","message_id":"msg-123"}""";
+        const string secretKey = "webhook-secret";
+        var signature = Sign(payload, secretKey);
+
+        var verified = TermiiWebhookSignature.Verify(
+            """{"type":"delivery_report","message_id":"msg-456"}""",
+            signature,
+            secretKey);
+
+        Assert.False(verified);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("not-a-signature")]
+    [InlineData("sha512=not-a-signature")]
+    public void VerifyRejectsMissingOrMalformedSignature(string? signature)
+    {
+        var verified = TermiiWebhookSignature.Verify(
+            """{"type":"delivery_report"}""",
+            signature,
+            "webhook-secret");
+
+        Assert.False(verified);
+    }
+
+    [Fact]
+    public void VerifyAcceptsRawPayloadBytes()
+    {
+        const string payload = """{"type":"delivery_report","message_id":"msg-123"}""";
+        const string secretKey = "webhook-secret";
+        var signature = Sign(payload, secretKey);
+
+        var verified = TermiiWebhookSignature.Verify(
+            Encoding.UTF8.GetBytes(payload),
+            signature,
+            secretKey);
+
+        Assert.True(verified);
+    }
+
+    private static string Sign(string payload, string secretKey)
+    {
+        using var hmac = new HMACSHA512(Encoding.UTF8.GetBytes(secretKey));
+        var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(payload));
+        var builder = new StringBuilder(hash.Length * 2);
+
+        foreach (var value in hash)
+        {
+            builder.Append(value.ToString("x2"));
+        }
+
+        return builder.ToString();
     }
 }
