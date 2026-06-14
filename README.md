@@ -285,6 +285,28 @@ var phonebook = await client.Campaigns.CreatePhonebookAsync(new CreatePhonebookR
 });
 ```
 
+Send a campaign to a phonebook:
+
+```csharp
+var campaign = await client.Campaigns.SendAsync(new SendCampaignRequest
+{
+    CountryCode = "234",
+    SenderId = "Termii",
+    Message = "Welcome to Termii.",
+    Channel = "generic",
+    MessageType = "Plain",
+    PhonebookId = "phonebook-123",
+    CampaignType = "regular",
+    ScheduleSmsStatus = "regular"
+});
+```
+
+Fetch campaign history:
+
+```csharp
+var history = await client.Campaigns.GetCampaignHistoryAsync("C714360330258");
+```
+
 ## Contacts
 
 Add a single contact to a phonebook:
@@ -362,7 +384,7 @@ Implemented in the current SDK:
 - Number API: send message through a dedicated Termii number.
 - Tokens: send, verify, generate, voice, email, and WhatsApp OTP flows.
 - Insights: balance, DND status, number intelligence, message history, and message analytics.
-- Campaigns: list, create, update, and delete phonebooks.
+- Campaigns: send campaigns, list campaigns, fetch campaign history, retry failed campaigns, and manage phonebooks.
 - Contacts: list, add, upload, and delete phonebook contacts.
 - Product emails: send template-based notification emails.
 

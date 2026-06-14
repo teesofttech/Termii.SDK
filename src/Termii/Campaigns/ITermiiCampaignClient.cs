@@ -2,6 +2,22 @@ namespace Termii;
 
 public interface ITermiiCampaignClient
 {
+    Task<SendCampaignResponse> SendAsync(
+        SendCampaignRequest request,
+        CancellationToken cancellationToken = default);
+
+    Task<CampaignListResponse> GetCampaignsAsync(
+        GetCampaignsRequest? request = null,
+        CancellationToken cancellationToken = default);
+
+    Task<CampaignHistoryResponse> GetCampaignHistoryAsync(
+        string campaignId,
+        CancellationToken cancellationToken = default);
+
+    Task<CampaignOperationResponse> RetryAsync(
+        string campaignId,
+        CancellationToken cancellationToken = default);
+
     Task<PhonebookListResponse> GetPhonebooksAsync(
         GetPhonebooksRequest? request = null,
         CancellationToken cancellationToken = default);

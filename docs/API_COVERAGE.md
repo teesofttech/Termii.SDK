@@ -60,6 +60,10 @@ The Termii docs describe a REST/JSON API and state that each account has its own
 | Insights | Query number intelligence/status | GET | `/api/insight/number/query` | Query | `TermiiClient.Insights` | Implemented | #9, PR #27 | Unit tests added |
 | Insights | Fetch message inbox/history | GET | `/api/sms/inbox` | Query | `TermiiClient.Insights` | Implemented | #9, PR #27 | Unit tests added |
 | Insights | Fetch message analytics/history | GET | `/api/sms/history/analytics` | Query | `TermiiClient.Insights` | Implemented | #34, PR #35 | Unit tests added |
+| Campaigns | Send campaign | POST | `/api/sms/campaigns/send` | JSON body | `TermiiClient.Campaigns` | Implemented | #44 | Unit tests added |
+| Campaigns | Fetch campaigns | GET | `/api/sms/campaigns` | Query | `TermiiClient.Campaigns` | Implemented | #44 | Unit tests added |
+| Campaigns | Fetch campaign history | GET | `/api/sms/campaigns/{campaign_id}` | Query | `TermiiClient.Campaigns` | Implemented | #44 | Unit tests added |
+| Campaigns | Retry failed campaign | PATCH | `/api/sms/campaigns/{campaign_id}` | JSON body | `TermiiClient.Campaigns` | Implemented | #44 | Unit tests added |
 | Campaigns | Fetch phonebooks | GET | `/api/phonebooks` | Query | `TermiiClient.Campaigns` | Implemented | #33, PR #38 | Unit tests added |
 | Campaigns | Create phonebook | POST | `/api/phonebooks` | JSON body | `TermiiClient.Campaigns` | Implemented | #33, PR #38 | Unit tests added |
 | Campaigns | Update phonebook | PATCH | `/api/phonebooks/{phonebook_id}` | JSON body | `TermiiClient.Campaigns` | Implemented | #33, PR #38 | Unit tests added |
